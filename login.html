@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script>
+        var scale = 1 / window.devicePixelRatio
+        document.write(`
+      <meta name="viewport"
+        content="initial-scale=${scale}, maximum-scale=${scale}, minimum-scale=${scale}, user-scalable=no"> 
+      `)
+         var width = document.documentElement.clientWidth
+         var css = `
+    html{
+        font-size:${width / 10}px;
+    }
+    `
+         document.write(`<style>${css}</style>`)
+    </script>
+    <title>rem-login</title>
+    <style>
+        .wrapper {
+            background-image: url(img/read.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Roboto';
+            font-size: .45rem;
+            
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            position: relative;
+            width: 10rem;
+            height: 100vh;
+        }
+
+        .tabs ol {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .tabs .content {
+            width: 5.4rem;
+            display: flex;
+            justify-content: center;
+            position: absolute;
+            top: 38%;
+        }
+
+        .tabs .content>li {
+            padding: .54rem;
+            padding-left: 0;
+            flex-grow: 1;
+            text-align: left;
+            color: #847E6F;
+        }
+
+        .tabs .content>li.active {
+            color: white;
+        }
+
+        .tabs .main {
+            display: flex;
+            justify-content: center;
+            position: absolute;
+            top: 45%;
+        }
+
+        .tabs .main li {
+            display: none;
+            width: 5.4rem;
+        }
+
+        .tabs .main li.active {
+            display: inline-block;
+        }
+
+        .input-container {
+            width: 5.4rem;
+            position: relative;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: reverse;
+            flex-flow: column-reverse;
+            -webkit-box-align: start;
+            align-items: flex-start;
+            margin: .27rem auto
+        }
+
+        .input-container input {
+            -webkit-box-ordinal-group: 11;
+            order: 10;
+            outline: none;
+            border: none;
+            width: 100%;
+            padding: .27rem 0;
+            font-size: .54rem;
+            border-bottom: 1px solid rgb(101, 141, 181);
+            text-indent: .27rem;
+            background-color: transparent;
+            color: white;
+        }
+
+        .input-container input::-moz-placeholder {
+            opacity: 0;
+        }
+
+        .input-container input::-webkit-input-placeholder {
+            opacity: 0;
+        }
+
+        .input-container input:-ms-input-placeholder {
+            opacity: 0;
+        }
+
+        .input-container input,
+        .input-container label {
+            transition: all 0.3s;
+        }
+
+        .input-container label {
+            -webkit-box-ordinal-group: 101;
+            order: 100;
+            color: white;
+            z-index: 0;
+            transform-origin: left bottom;
+            -webkit-transform: translate(.27rem, 1.1rem);
+            transform: translate(0, 1.1rem);
+        }
+
+        .input-container .bottom-line {
+            order: 2;
+            width: 0;
+            height: .053rem;
+            background: rgb(101, 141, 181);
+            transition: all 0.3s;
+        }
+
+        .input-container input:focus {
+            border-bottom-color: rgb(101, 141, 181);
+        }
+
+        .input-container input:focus~div,
+        .input-container input:not(:placeholder-shown)~div {
+            width: 100%
+        }
+
+        .input-container input:focus+label,
+        .input-container input:not(:placeholder-shown)+label {
+            color: white;
+            -webkit-transform: translate(.27rem) scale(0.9);
+            transform: translate(.27rem) scale(0.9)
+        }
+
+        input[type=checkbox] {
+            visibility: hidden;
+        }
+
+        .checkbox {
+            width: .67rem;
+            margin: .88rem 0;
+            display: flex;
+            position: relative;
+        }
+
+        .checkbox label {
+            cursor: pointer;
+            position: absolute;
+            width: .4rem;
+            height: .4rem;
+            top: 0;
+            left: 0;
+            background: #eee;
+            border: 1px solid #ddd;
+        }
+
+        .checkbox label:after {
+            opacity: 0.2;
+            content: '';
+            position: absolute;
+            width: .21rem;
+            height: .13rem;
+            background: transparent;
+            top: .06rem;
+            left: .06rem;
+            border: .06rem solid #333;
+            border-top: none;
+            border-right: none;
+            transform: rotate(-45deg);
+        }
+
+        .checkbox label:hover::after {
+            opacity: 0.5;
+        }
+
+        .checkbox input[type=checkbox]:checked+label:after {
+            opacity: 1;
+        }
+
+        .checkbox .keep {
+            width: 5.4rem;
+            margin: 0 1.5rem;
+            color: white;
+            display: table;
+        }
+
+        .main .forget {
+            color: white;
+            text-align: center;
+            margin: .8rem 0;
+        }
+
+        button {
+            width: 5.4rem;
+            line-height: .8rem;
+            margin-top: .27rem;
+            outline: none;
+            list-style: none;
+            background: transparent;
+            border: 2px solid white;
+            border-radius: .27rem;
+            color: white;
+            font-size: .45rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="tabs">
+            <ol data-role="nav" class="content">
+                <li class="active">SIGN IN</li>
+                <li>SIGN UP</li>
+            </ol>
+            <ol data-role="panes" class="main">
+                <li class="active">
+                    <div class="input-container">
+                        <input type="text" id="input" placeholder="USERNAME">
+                        <label for="input">USERNAME</label>
+                        <div class="bottom-line"></div>
+                    </div>
+                    <div class="input-container">
+                        <input type="password" id="input" placeholder="PASSWORD">
+                        <label for="input">PASSWORD</label>
+                        <div class="bottom-line"></div>
+                    </div>
+                    <div class="checkbox">
+                        <input type="checkbox" id="checkboxInput" name="" />
+                        <label for="checkboxInput"></label>
+                        <div class="keep">Remenber me</div>
+                    </div>
+                    <button>SIGN IN</button>
+                    <div class="forget">Forgot Password?</div>
+                </li>
+                <li>
+                    <div class="input-container">
+                        <input type="text" id="input" placeholder="USERNAME">
+                        <label for="input">USERNAME</label>
+                        <div class="bottom-line"></div>
+                    </div>
+                    <div class="input-container">
+                        <input type="password" id="input" placeholder="PASSWORD">
+                        <label for="input">PASSWORD</label>
+                        <div class="bottom-line"></div>
+                    </div>
+                    <div class="input-container">
+                        <input type="password" id="input" placeholder="PASSWORD">
+                        <label for="input">PASSWORD</label>
+                        <div class="bottom-line"></div>
+                    </div>
+                    <button>SIGN UP</button>
+                </li>
+            </ol>
+        </div>
+    </div>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+        $('.tabs').on('click', 'ol[data-role="nav"]>li', function (e) {
+            let $li = $(e.currentTarget)
+            let index = $li.index()
+            $li.addClass('active').siblings().removeClass('active')
+            $li.closest('ol[data-role="nav"]').siblings('ol[data-role="panes"]')
+                .find('li').eq(index).addClass('active').siblings().removeClass('active')
+        })
+    </script>
+</body>
+
+</html>
